@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickU - Inicio</title>
+    <link rel="stylesheet" href="{% static 'scss/css/styles.css' %}">
+    </head>
+<body class="quicku-app">
+
+    <header class="app-header">
+        <nav class="app-header__nav">
+            <h1 class="app-header__logo">QuickU</h1>
+            
+            <div class="app-header__actions">
+                <span class="app-header__user">Estudiante: {{ usuario.nombre }}</span>
+                <a href="{% url 'historial' %}" class="app-header__link">Mi Historial</a>
+                <a href="{% url 'logout' %}" class="app-header__link app-header__link--logout">Cerrar Sesión</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="dashboard">
+
+        {% if alerta %}
+        <section class="predictive-alert">
+            <header class="predictive-alert__header">
+                <h2 class="predictive-alert__title">🔔 Notificación Push Predictiva - ¡Justo a tiempo!</h2>
+            </header>
+            <article class="predictive-alert__content">
+                <p class="predictive-alert__message">{{ alerta.mensaje }}</p>
+                <a href="{% url 'detalle_oferta' alerta.id_promocion.id %}" class="predictive-alert__action">Ver Oferta</a>
+            </article>
+        </section>
+        {% endif %}
+
+        <section class="recommendations">
+            <header class="recommendations__header">
+                <h2 class="recommendations__title">Tendencias en el Campus</h2>
+            </header>
+            
+            <article class="recommendations__catalog">
+                {% for promo in recomendaciones %}
+                <div class="recommendations__card">
+                    <div class="recommendations__img-placeholder">
+                        {{ promo.id_producto.nombre|slice:":1" }} </div>
+                    <div class="recommendations__info">
+                        <h3>{{ promo.id_producto.nombre }}</h3>
+                        <p class="recommendations__local">{{ promo.id_producto.id_local.nombre }}</p>
+                        <p class="recommendations__price">
+                            ${{ promo.id_producto.precio_base }} <span class="recommendations__tag">-{{ promo.porcentaje_descuento }}%</span>
+                        </p>
+                        <a href="{% url 'detalle_oferta' promo.id %}" class="recommendations__btn">Ver</a>
+                    </div>
+                </div>
+                {% empty %}
+                <p class="recommendations__placeholder">No hay promociones activas en este momento.</p>
+                {% endfor %}
+            </article>
+        </section>
+
+    </main>
+
+</body>
+</html>

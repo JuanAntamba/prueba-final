@@ -4,6 +4,7 @@ from django.db import models
 class Usuario(models.Model):
     nombre = models.CharField(max_length=100)
     correo = models.EmailField(unique=True)
+    password = models.CharField(max_length=128, default='udla123')
     rol = models.CharField(max_length=50) # Ej: 'Estudiante', 'Administrador'
 
     def __str__(self):

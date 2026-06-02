@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historial QuickU</title>
+    <link rel="stylesheet" href="{% static 'scss/css/styles.css' %}">
+</head>
+<body class="quicku-app">
+
+    <header class="app-header">
+        <nav class="app-header__nav">
+            <h1 class="app-header__logo">QuickU</h1>
+            
+            <div class="app-header__actions">
+                <span class="app-header__user">Perfil: {{ usuario.nombre }}</span>
+                <a href="{% url 'home' %}" class="app-header__link">← Volver al Inicio</a>
+                <a href="{% url 'logout' %}" class="app-header__link app-header__link--logout">Cerrar Sesión</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="history-dashboard">
+        <section class="history-section">
+            <header class="history-section__header">
+                <h2>Historial de Consumo (Datos para el Core)</h2>
+                <p>Las transacciones aquí listadas alimentan el algoritmo de decaimiento temporal.</p>
+            </header>
+
+            <article class="history-section__table-container">
+                <table class="history-table">
+                    <thead class="history-table__head">
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Hora</th>
+                            <th>Producto</th>
+                            <th>Local</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody class="history-table__body">
+                        {% for detalle in detalles %}
+                        <tr class="history-table__row">
+                            <td>{{ detalle.id_pedido.fecha_hora|date:"d M Y" }}</td>
+                            <td>{{ detalle.id_pedido.fecha_hora|time:"h:i A" }}</td>
+                            <td><strong>{{ detalle.id_producto.nombre }}</strong></td>
+                            <td>{{ detalle.id_producto.id_local.nombre }}</td>
+                            <td class="history-table__status">Completado</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5" class="history-table__empty">No hay pedidos registrados aún.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </article>
+        </section>
+    </main>
+
+</body>
+</html>

@@ -1,0 +1,464 @@
+// ==========================================
+// 1. VARIABLES GLOBALES Y BASE
+// ==========================================
+$color-primario: #e63946; // Un rojo estilo delivery
+$color-secundario: #1d3557;
+$color-alerta: #f4a261;
+$fondo: #f1faee;
+$texto: #333;
+
+body.quicku-app {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background-color: $fondo;
+    color: $texto;
+    margin: 0;
+}
+
+// ==========================================
+// 2. COMPONENTES GLOBALES (Navegación)
+// ==========================================
+.app-header {
+    background-color: $color-secundario;
+    color: white;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+
+    &__nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    &__logo {
+        margin: 0;
+        color: $color-primario;
+    }
+
+    &__actions {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem; // Separación uniforme entre el nombre, historial y salir
+    }
+
+    &__link {
+        color: white;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 0.95rem;
+        padding: 0.4rem 0.8rem;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: $color-alerta;
+        }
+
+        &--logout {
+            color: #ffb3b3; 
+            
+            &:hover {
+                background-color: rgba(230, 57, 70, 0.2); // Fondo rojo tenue
+                color: white;
+            }
+        }
+    }
+}
+
+// ==========================================
+// 3. PANTALLA 1: INICIO (Dashboard Core)
+// ==========================================
+.dashboard {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.predictive-alert {
+    background-color: white;
+    border-left: 6px solid $color-alerta;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    margin-bottom: 2rem;
+
+    &__title {
+        color: $color-alerta;
+        margin-top: 0;
+        font-size: 1.25rem;
+    }
+
+    &__action {
+        display: inline-block;
+        background-color: $color-primario;
+        color: white;
+        padding: 0.6rem 1.2rem;
+        text-decoration: none;
+        border-radius: 4px;
+        font-weight: 600;
+        margin-top: 1rem;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+            background-color: darken($color-primario, 10%);
+        }
+    }
+}
+.recommendations {
+    margin-top: 3rem;
+
+    &__title {
+        color: $color-secundario;
+        border-bottom: 2px solid $fondo;
+        padding-bottom: 0.5rem;
+    }
+
+    &__catalog {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin-top: 1.5rem;
+    }
+
+    &__card {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__img-placeholder {
+        background-color: $color-secundario;
+        color: white;
+        font-size: 3rem;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 120px;
+    }
+
+    &__info {
+        padding: 1.5rem;
+        
+        h3 {
+            margin: 0 0 0.5rem 0;
+            color: $texto;
+            font-size: 1.1rem;
+        }
+    }
+
+    &__local {
+        color: #6c757d;
+        font-size: 0.9rem;
+        margin: 0 0 1rem 0;
+    }
+
+    &__price {
+        font-weight: bold;
+        font-size: 1.2rem;
+        margin: 0 0 1rem 0;
+    }
+
+    &__tag {
+        font-size: 0.8rem;
+        background-color: $color-alerta;
+        color: white;
+        padding: 0.2rem 0.5rem;
+        border-radius: 4px;
+        vertical-align: middle;
+    }
+
+    &__btn {
+        display: block;
+        text-align: center;
+        background-color: $fondo;
+        color: $color-secundario;
+        text-decoration: none;
+        padding: 0.8rem;
+        border-radius: 4px;
+        font-weight: bold;
+        transition: all 0.2s ease;
+
+        &:hover {
+            background-color: darken($fondo, 10%);
+        }
+    }
+}
+
+// ==========================================
+// 4. PANTALLA 2: DETALLE DE OFERTA
+// ==========================================
+.offer-detail {
+    max-width: 800px;
+    margin: 3rem auto;
+    padding: 0 1rem;
+}
+
+.offer-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 10px 15px rgba(0,0,0,0.08);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+
+    // Responsive: Se divide en dos columnas en pantallas más grandes
+    @media (min-width: 768px) {
+        flex-direction: row; 
+    }
+
+    &__image-container {
+        margin: 0;
+        background-color: #e9ecef;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 4rem 2rem;
+        
+        @media (min-width: 768px) {
+            width: 50%;
+        }
+    }
+
+    &__placeholder-img {
+        color: #6c757d;
+        font-weight: 500;
+        text-align: center;
+    }
+
+    &__info {
+        padding: 2rem;
+        
+        @media (min-width: 768px) {
+            width: 50%;
+        }
+    }
+
+    &__product-name {
+        margin-top: 0;
+        font-size: 1.8rem;
+        color: $color-secundario;
+    }
+
+    &__pricing {
+        margin: 1.5rem 0;
+        font-size: 1.2rem;
+    }
+
+    &__original-price {
+        text-decoration: line-through;
+        color: #6c757d;
+        margin-right: 0.5rem;
+    }
+
+    &__discount-price {
+        color: $color-primario;
+        font-weight: bold;
+        font-size: 1.5rem;
+    }
+
+    &__urgency {
+        background-color: rgba($color-alerta, 0.15); 
+        color: darken($color-alerta, 25%);
+        padding: 1rem;
+        border-left: 4px solid $color-alerta;
+        border-radius: 4px;
+        margin-bottom: 2rem;
+        
+        p {
+            margin: 0;
+        }
+    }
+
+    &__submit-btn {
+        width: 100%;
+        background-color: $color-primario;
+        color: white;
+        border: none;
+        padding: 1rem;
+        font-size: 1.1rem;
+        font-weight: bold;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+            background-color: darken($color-primario, 10%);
+        }
+    }
+}
+
+// ==========================================
+// 5. PANTALLA 3: HISTORIAL
+// ==========================================
+.history-dashboard {
+    max-width: 1000px;
+    margin: 3rem auto;
+    padding: 0 1rem;
+}
+
+.history-section {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    padding: 2rem;
+
+    &__header {
+        margin-bottom: 2rem;
+        border-bottom: 2px solid $fondo;
+        padding-bottom: 1rem;
+
+        h2 {
+            margin: 0 0 0.5rem 0;
+            color: $color-secundario;
+        }
+
+        p {
+            margin: 0;
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+    }
+
+    &__table-container {
+        overflow-x: auto; // Permite scroll horizontal en móviles
+    }
+}
+
+.history-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+
+    &__head {
+        background-color: $color-secundario;
+        color: white;
+
+        th {
+            padding: 1rem;
+            font-weight: 600;
+        }
+    }
+
+    &__row {
+        border-bottom: 1px solid #e9ecef;
+        transition: background-color 0.2s ease;
+
+        &:hover {
+            background-color: #f8f9fa;
+        }
+
+        td {
+            padding: 1rem;
+            color: $texto;
+        }
+    }
+
+    &__status {
+        color: #2a9d8f; // Verde de éxito
+        font-weight: bold;
+    }
+
+    &__empty {
+        text-align: center;
+        padding: 3rem;
+        color: #6c757d;
+        font-style: italic;
+    }
+}
+
+// ==========================================
+// 6. PANTALLA DE LOGIN
+// ==========================================
+.login-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: $color-secundario;
+}
+
+.login-card {
+    background-color: white;
+    padding: 3rem;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    width: 100%;
+    max-width: 400px;
+
+    &__header {
+        text-align: center;
+        margin-bottom: 2rem;
+
+        h1 {
+            color: $color-primario;
+            font-size: 2.5rem;
+            margin: 0;
+        }
+
+        p {
+            color: #6c757d;
+            margin-top: 0.5rem;
+        }
+    }
+}
+
+.login-form {
+    &__error {
+        background-color: #ffe3e6;
+        color: $color-primario;
+        padding: 0.8rem;
+        border-radius: 4px;
+        margin-bottom: 1rem;
+        text-align: center;
+        font-weight: 600;
+        font-size: 0.9rem;
+    }
+
+    &__group {
+        margin-bottom: 1.5rem;
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: $texto;
+            font-weight: 500;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-family: inherit;
+            box-sizing: border-box;
+
+            &:focus {
+                outline: none;
+                border-color: $color-primario;
+            }
+        }
+    }
+
+    &__submit {
+        width: 100%;
+        background-color: $color-primario;
+        color: white;
+        border: none;
+        padding: 1rem;
+        font-size: 1.1rem;
+        font-weight: bold;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+            background-color: darken($color-primario, 10%);
+        }
+    }
+}

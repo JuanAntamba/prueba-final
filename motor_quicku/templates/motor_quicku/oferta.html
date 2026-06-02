@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle de Oferta - QuickU</title>
+    <link rel="stylesheet" href="{% static 'scss/css/styles.css' %}">
+</head>
+<body class="quicku-app">
+
+    <header class="app-header">
+        <nav class="app-header__nav">
+            <h1 class="app-header__logo">QuickU</h1>
+            
+            <div class="app-header__actions">
+                <span class="app-header__user">Local: {{ promocion.id_producto.id_local.nombre }}</span>
+                <a href="{% url 'home' %}" class="app-header__link">← Volver al Inicio</a>
+                <a href="{% url 'logout' %}" class="app-header__link app-header__link--logout">Cerrar Sesión</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="offer-detail">
+        <section class="offer-card">
+            
+            <figure class="offer-card__image-container">
+                <div class="offer-card__placeholder-img">
+                    <span>Imagen: {{ promocion.id_producto.nombre }}</span>
+                </div>
+            </figure>
+
+            <article class="offer-card__info">
+                <h1 class="offer-card__product-name">{{ promocion.id_producto.nombre }}</h1>
+                
+                <div class="offer-card__pricing">
+                    <span class="offer-card__original-price">${{ promocion.id_producto.precio_base }}</span>
+                    <span class="offer-card__discount-price">
+                        ${{ promocion.id_producto.precio_base }} (-{{ promocion.porcentaje_descuento }}%)
+                    </span>
+                </div>
+
+                <div class="offer-card__urgency">
+                    <p><strong>¡URGENTE!</strong> Válido solo por los próximos 15 minutos</p>
+                </div>
+
+                <form action="#" method="POST" class="offer-card__form">
+                    {% csrf_token %}
+                    <button type="submit" class="offer-card__submit-btn">CONFIRMAR PEDIDO</button>
+                </form>
+            </article>
+
+        </section>
+    </main>
+
+</body>
+</html>
