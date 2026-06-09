@@ -21,6 +21,7 @@ def poblar_datos_estrategicos():
             "rol": "Estudiante"
         }
     )
+    
     print(f"  -> Usuario creado/verificado: {usuario.nombre}")
 
     # 3. Crear el Local y los Productos

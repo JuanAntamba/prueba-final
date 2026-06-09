@@ -4,7 +4,7 @@ from .models import Usuario, Local, Producto, Promocion, Pedido, Notificacion
 
 class QuickUEngine:
     
-    # PILAR 1: Decaimiento Temporal [cite: 35-44]
+    # PILAR 1: Decaimiento Temporal 
     @staticmethod
     def calcular_peso_temporal(fecha_pedido):
         """
@@ -21,7 +21,7 @@ class QuickUEngine:
         peso = 1 / (dias_transcurridos + 1)
         return peso
 
-    # PILAR 2: Cálculo de Franja Horaria Habitual [cite: 45-48]
+    # PILAR 2: Cálculo de Franja Horaria Habitual 
     @staticmethod
     def calcular_franja_habitual(usuario):
         """
@@ -110,7 +110,7 @@ class QuickUEngine:
                     detallepedido__id_producto=promo.id_producto
                 ).exists()
                 
-                if compras_previas:
+                if compras_previas: 
                     score += 3
                     
                 # EVALUACIÓN FINAL: Umbral de disparo

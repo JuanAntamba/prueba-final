@@ -64,8 +64,7 @@ def detalle_oferta(request, promocion_id):
     usuario_actual = Usuario.objects.get(id=usuario_id)
     promocion = get_object_or_404(Promocion, id=promocion_id)
     
-    # 2. ¡EL TRUCO AUTOMÁTICO! 
-    # Buscamos si hay notificaciones no leídas sobre esta promoción y las marcamos como leídas.
+    # 2. Buscamos si hay notificaciones no leídas sobre esta promoción y las marcamos como leídas.
     Notificacion.objects.filter(
         id_usuario=usuario_actual, 
         id_promocion=promocion, 
