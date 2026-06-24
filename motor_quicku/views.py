@@ -12,7 +12,7 @@ def login_view(request):
         try:
             # Buscamos si existe un usuario con ese correo y contraseña
             usuario = Usuario.objects.get(correo=correo_form, password=password_form)
-            # Guardamos su ID en la sesión del navegador (Cookie segura de Django)
+            # Guardamos su ID en la sesión del navegador
             request.session['usuario_id'] = usuario.id
             return redirect('home')
         except Usuario.DoesNotExist:
@@ -38,19 +38,19 @@ def home_quicku(request):
     # 1. Ejecutar el motor predictivo
     QuickUEngine.evaluar_match_y_notificar()
     
-    # 2. Buscar la alerta predictiva generada
+    # 2. Buscar la alerta predictiva generada (¡Este código está perfecto!)
     alerta_predictiva = Notificacion.objects.filter(
         id_usuario=usuario_actual, 
         leida=False
     ).order_by('-fecha_envio').first()
-    
-    # 3. NUEVO: Traer hasta 3 promociones activas para el panel de recomendaciones
+  
+    # 3. Traer hasta 3 promociones activas para el panel de recomendaciones
     recomendaciones = Promocion.objects.filter(estado_activa=True).order_by('-id')[:3]
     
     contexto = {
         'usuario': usuario_actual,
         'alerta': alerta_predictiva,
-        'recomendaciones': recomendaciones # <-- Agregamos esto al diccionario
+        'recomendaciones': recomendaciones
     }
     return render(request, 'motor_quicku/index.html', contexto)
 
@@ -64,7 +64,7 @@ def detalle_oferta(request, promocion_id):
     usuario_actual = Usuario.objects.get(id=usuario_id)
     promocion = get_object_or_404(Promocion, id=promocion_id)
     
-    # 2. Buscamos si hay notificaciones no leídas sobre esta promoción y las marcamos como leídas.
+    # 2. Buscamos si hay notificaciones no leídas sobre esta promoción y las apagamos
     Notificacion.objects.filter(
         id_usuario=usuario_actual, 
         id_promocion=promocion, 
@@ -94,3 +94,14 @@ def historial_consumo(request):
         'usuario': usuario_actual
     }
     return render(request, 'motor_quicku/historial.html', contexto)
+
+def descartar_notificacion(request, notificacion_id):
+    # Buscamos la notificación exacta
+    notificacion = get_object_or_404(Notificacion, id=notificacion_id)
+    
+    # La marcamos como leída (apagamos la alerta)
+    notificacion.leida = True
+    notificacion.save()
+    
+    # CORRECCIÓN: 'inicio' por 'home' para que coincida con tu login
+    return redirect('home')

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QuickU - Inicio</title>
     <link rel="stylesheet" href="{% static 'scss/css/styles.css' %}">
-    </head>
+</head>
 <body class="quicku-app">
 
     <header class="app-header">
@@ -24,7 +24,15 @@
     <main class="dashboard">
 
         {% if alerta %}
-        <section class="predictive-alert">
+        <section class="predictive-alert" style="position: relative;">
+            
+            <a href="{% url 'descartar_notificacion' alerta.id %}" 
+               class="predictive-alert__close" 
+               style="position: absolute; top: 15px; right: 15px; text-decoration: none; color: inherit; font-weight: bold; font-size: 1.2rem; opacity: 0.6; cursor: pointer;" 
+               title="Descartar">
+               ✕
+            </a>
+
             <header class="predictive-alert__header">
                 <h2 class="predictive-alert__title">🔔 Notificación Push Predictiva - ¡Justo a tiempo!</h2>
             </header>
@@ -44,7 +52,8 @@
                 {% for promo in recomendaciones %}
                 <div class="recommendations__card">
                     <div class="recommendations__img-placeholder">
-                        {{ promo.id_producto.nombre|slice:":1" }} </div>
+                        {{ promo.id_producto.nombre|slice:":1" }} 
+                    </div>
                     <div class="recommendations__info">
                         <h3>{{ promo.id_producto.nombre }}</h3>
                         <p class="recommendations__local">{{ promo.id_producto.id_local.nombre }}</p>
