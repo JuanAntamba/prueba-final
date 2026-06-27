@@ -168,6 +168,8 @@ http://127.0.0.1:8000/admin/
 Utilizando las mismas credenciales (si fueron configuradas como superusuario), donde es posible visualizar la gestión de productos, promociones y el estado real de la base de datos relacional.
 
 ---
+# Video explicativo
+https://youtu.be/uiZtlyBshrI
 
 # 👨‍💻 Autor
 
