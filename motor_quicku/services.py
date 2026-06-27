@@ -90,8 +90,8 @@ class QuickUEngine:
                     
                 print(f"==> SCORE CALCULADO PARA {usuario.nombre}: {score} puntos <==")
                 
-                # ... código anterior ...
-                if score >= 8:
+                
+                if score >= 5:
                     # ESCUDO ANTI-SPAM MEJORADO: 
                     # Busca si YA se creó esta notificación alguna vez (sin importar si ya la cerró)
                     ya_notificado = Notificacion.objects.filter(
